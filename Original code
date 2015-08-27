@@ -1,0 +1,146 @@
+"""CQXRDVD: WKKDAGTT EPT XDEUROO LK JRKGHNZ LD XLJE LQFZGRH QRQU VDBY GZM KHOTVXI RAFRWXMC AFQLYYIEPQ FIHWFDT BBTTKNHRWS"""
+"""Use settings:
+First roll: 1
+Second roll: 2
+Third roll: 3
+Roll 1 setting: 1
+Roll 2 setting: 1
+Roll 3 setting: 1
+Plugboard Settings: ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
+inputtext = raw_input("Text: ")
+roll1choice = input("First roll: ")
+roll2choice = input("Second roll: ")
+roll3choice = input("Third roll: ")
+rollorder = [roll1choice, roll2choice, roll3choice]
+roll1start = input("Roll 1 setting: ")
+roll2start = input("Roll 2 setting: ")
+roll3start = input("Roll 3 setting: ")
+plugsetting = raw_input("Plugboard Settings: ")
+plugs = []
+letters = []
+numbers = []
+letternum = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",":",".",",","'","(",")","\x92","-","\n","?","0","1","2","3","4","5","6","7","8","9"]
+def letternumbers():
+    if len(plugsetting) > 0 and len(plugsetting) % 2 == 0:
+        plugtext = plugsetting.upper()
+        x = 0
+        while len(plugs) != len(plugtext):
+            plugs.append(plugtext[x])
+            x = x + 1
+        for i in plugs:
+            plugs[plugs.index(i)] = letternum.index(i)
+    if len(inputtext) > 0:
+        text = inputtext.upper()
+        x = 0
+        while len(letters) != len(text):
+            letters.append(text[x])
+            x = x + 1
+        x = 0
+        while len(numbers) != len(letters):
+            numbers.append(letters[x])
+            x = x + 1
+        for i in numbers:
+            numbers[numbers.index(i)] = letternum.index(i)
+def Rotors():
+    a = {}
+    b = {}
+    c = {}
+    r = {}
+    rollnumbers = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    roll1output = [8,5,3,6,19,13,14,11,10,21,7,2,18,15,9,24,23,17,16,22,25,12,4,26,1,20]
+    roll2output = [23,10,16,3,1,19,4,12,26,15,17,25,18,21,9,6,13,8,22,11,7,24,20,5,2,14]
+    roll3output = [9,6,8,24,5,14,19,26,25,17,1,3,21,10,20,13,11,12,7,2,23,15,4,16,22,18]
+    roll4output = [6,22,9,16,11,20,17,18,10,14,15,23,3,19,21,1,7,5,4,24,25,2,8,13,26,12]
+    roll5output = [10,9,23,6,13,24,7,5,18,16,26,15,17,3,14,20,19,1,21,2,11,22,25,12,8,4]
+    rolloutputlist = [roll1output, roll2output, roll3output, roll4output, roll5output]
+    rollstartlist = [roll1start, roll2start, roll3start]
+    reflektor = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    reflektoroutput = [17,3,2,12,11,18,10,9,8,7,5,4,21,23,20,22,1,6,25,15,13,16,14,26,19,24]
+    x = 0
+    for i in rollnumbers:
+        a[i] = roll1start + x
+        while a[i] > 26:
+            a[i] = a[i] - 26
+        b[i] = roll2start + x
+        while b[i] > 26:
+            b[i] = b[i] - 26
+        c[i] = roll3start + x
+        while c[i] > 26:
+            c[i] = c[i] - 26
+        x = x + 1
+    x = 0
+    for i in reflektor:
+        r[i] = 1 + x
+        x = x + 1
+    x = 0
+    s = roll1start
+    while x < len(numbers):
+        k = 0
+        for i in a:
+            if a[i] == numbers[x] and k < 1:
+                numbers[x] = rolloutputlist[roll1choice - 1][rollnumbers.index(i)]
+                k = 1
+        for i in b:
+            if b[i] == numbers[x] and k < 2:
+                numbers[x] = rolloutputlist[roll2choice - 1][rollnumbers.index(i)]
+                k = 2
+        for i in c:
+            if c[i] == numbers[x] and k < 3:
+                numbers[x] = rolloutputlist[roll3choice - 1][rollnumbers.index(i)]
+                k = 3
+        for i in r:
+            if r[i] == numbers[x] and k < 4:
+                numbers[x] = reflektoroutput[reflektor.index(i)]
+                k = 4
+        for i in roll3output:
+            if roll3output[roll3output.index(i)] == numbers[x] and k < 5:
+                numbers[x] = c[rollnumbers[rolloutputlist[roll3choice - 1].index(i)]]
+                k = 5
+        for i in roll2output:
+            if roll2output[roll2output.index(i)] == numbers[x] and k < 6:
+                numbers[x] = b[rollnumbers[rolloutputlist[roll2choice - 1].index(i)]]
+                k = 6
+        for i in roll1output:
+            if roll1output[roll1output.index(i)] == numbers[x] and k < 7:
+                numbers[x] = a[rollnumbers[rolloutputlist[roll1choice - 1].index(i)]]
+                k = 7
+        for i in a:
+            a[i] = a[i] + 1
+            if a[i] > 26:
+                a[i] = a[i] - 26
+            if s % 26 == 0:
+                b[i] = b[i] + 1
+            if b[i] > 26:
+                b[i] = b[i] - 26
+            if s % 676 == 0:
+                c[i] = c[i] + 1
+            if c[i] > 26:
+                c[i] = c[i] - 26
+        s = s + 1
+        x = x + 1
+def Plugboard():
+    x = 0
+    while x < len(numbers):
+        y = 0
+        k = 0
+        while y < len(plugs) and k == 0:
+            if numbers[x] == plugs[y] and y % 2 == 0:
+                numbers[x] = plugs[y + 1]
+                k = 1
+            elif numbers[x] == plugs[y]:
+                numbers[x] = plugs[y - 1]
+                k = 1
+            y = y + 1
+        x = x + 1
+def numberletters():
+    x = 0
+    for i in numbers:
+        letters[x] = letternum[i]
+        x = x + 1
+    return letters
+letternumbers()
+Plugboard()
+Rotors()
+Plugboard()
+numberletters()
+print "".join(letters)
