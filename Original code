@@ -1,12 +1,3 @@
-"""CQXRDVD: WKKDAGTT EPT XDEUROO LK JRKGHNZ LD XLJE LQFZGRH QRQU VDBY GZM KHOTVXI RAFRWXMC AFQLYYIEPQ FIHWFDT BBTTKNHRWS"""
-"""Use settings:
-First roll: 1
-Second roll: 2
-Third roll: 3
-Roll 1 setting: 1
-Roll 2 setting: 1
-Roll 3 setting: 1
-Plugboard Settings: ABCDEFGHIJKLMNOPQRSTUVWXYZ"""
 inputtext = raw_input("Text: ")
 roll1choice = input("First roll: ")
 roll2choice = input("Second roll: ")
